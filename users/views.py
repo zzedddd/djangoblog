@@ -8,7 +8,8 @@ class RegisterView(View):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('home')
+            return redirect('home')
+        return render(request, 'users/register.html', {'form': form})
 
     def get(self, request):
         form = UserRegisterForm()
