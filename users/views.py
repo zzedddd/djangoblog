@@ -14,3 +14,8 @@ class RegisterView(View):
     def get(self, request):
         form = UserRegisterForm()
         return render(request, 'users/register.html', {'form': form})
+
+class ProfileView(View):
+
+    def get(self, request):
+        return render(request, 'users/profile.html')
