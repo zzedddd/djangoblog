@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserRegisterForm
 
@@ -6,7 +6,9 @@ class RegisterView(View):
 
     def post(self, request):
         form = UserRegisterForm(request.POST)
-        return render(request, 'users/register.html', {'form': form})
+        if form.is_valid():
+            form.save()
+        return redirect('home')
 
     def get(self, request):
         form = UserRegisterForm()
