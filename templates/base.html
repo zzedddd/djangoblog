@@ -10,8 +10,10 @@
 	</head>
 
 	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
-		<div>
-			{% block content %} <h1 class="text-5xl">Django + Tailwind = ❤️</h1> {% endblock %}
+		<div class="container mx-auto p-2">
+			<div class="grid grid-cols-1 gap-1 md:grid-cols-12 md:gap-12">
+				{% block content %} <h1 class="text-5xl">Django + Tailwind = ❤️</h1> {% endblock %}
+			</div>
 		</div>
 	</body>
 </html>
