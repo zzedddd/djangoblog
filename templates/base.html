@@ -10,9 +10,40 @@
 	</head>
 
 	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
-		<div class="container mx-auto p-2">
+		<div class="container mx-auto">
+			
+			{% block header %}
+			<div class="w-full flex flex-row justify-between p-2 bg-gray-100 rounded-lg drop-shadow-lg">
+				<button class="text-3xl text-white bg-black rounded-full"> <a href="/" class="px-2 py-2"> X </a></button>
+				<div class="flex flex-row">
+					<button class="text-lg text-black mx-2 my-1"> <a href="/" class="px-4 py-2"> Home </a></button>
+					
+		
+					{% if user.is_authenticated %}
+						<button class="text-lg text-white bg-blue-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'profile' %}" class="px-1 py-1"> PROFILE </a></button>
+						<button class="text-lg text-white bg-green-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'logout' %}" class="px-1 py-1"> LOGOUT </a></button>
+					{% else %}
+						<button class="text-lg text-white bg-blue-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'login' %}" class="px-1 py-1"> LOGIN </a></button>
+						<button class="text-lg text-white bg-green-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'register' %}" class="px-1 py-1"> REGISTER </a></button>
+					{% endif %}
+		
+				</div>
+			</div>
+			{% endblock %}
+			
 			<div class="grid grid-cols-1 gap-1 md:grid-cols-12 md:gap-12">
-				{% block content %} <h1 class="text-5xl">Django + Tailwind = ❤️</h1> {% endblock %}
+				<div class="col-span-1 md:col-span-8">
+					{% block content %} {% endblock %}
+				</div>
+
+				<div class="col-span-1 md:col-span-4">
+					{% block sidebar %} {% endblock %}
+				</div>
+			</div>
+			<div>
+				{% block footer %} 
+
+				{% endblock %}
 			</div>
 		</div>
 	</body>

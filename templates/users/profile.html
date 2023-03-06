@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <h1 class="text-2xl bg-blue-200 p-5 rounded-lg">
+            welcome {{ user.username }}! This is Profile page.
+        </h1>
+    {% else %}
+        <h1 class="text-2xl bg-blue-200 p-5 rounded-lg">
+            No user currently logged in. 
+        </h1>
+        <div class="flex flex-row bg-cyan-500">
+            <button type="submit" class="text-xl text-white bg-blue-500 rounded-lg px-4 py-2 mt-2"> <a href="{% url 'login' %}"> LOGIN </a> </button>
+            <button type="submit" class="text-xl text-white bg-blue-500 rounded-lg px-4 py-2 mt-2 ml-4"> <a href="{% url 'register' %}"> REGISTER </a> </button> 
+        </div>
+    {% endif %}
+{% endblock content %}

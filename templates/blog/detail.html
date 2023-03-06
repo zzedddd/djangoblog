@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="bg-gray-100 w-full rounded-lg drop-shadow-lg  p-5 md:p-10 mt-4">
+
+        <div class="flex flex-row justify-between">
+            <h1 class="text-2xl font-bold "> <a href="{% url 'post-detail' post.id %}"> {{ post.title }} </a></h1>
+
+            {% if post.author == user %}
+                <div class="flex flex-row">
+                    <button class="bg-blue-400 text-xl rounded-lg px-3 py-1 mr-2"><a href="{% url 'post-update' post.id %}"> Update </a></button>
+
+                    <button class="bg-red-400 text-xl rounded-lg px-3 py-1"><a href="{% url 'post-delete' post.id %}"> Delete </a></button>
+                </div>
+            {% endif %}
+        </div>
+        <p>Last updated: {{ post.updated_at }}</p>
+        <p> Author: {{ post.author }}</p>
+        <p class="text-xl mt-2"> {{ post.content }}</p>
+    </div>
+
+{% endblock content %}

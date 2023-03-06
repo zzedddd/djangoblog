@@ -1,22 +1,47 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block header %}
 
-    {% if user.is_authenticated %}
-        <div class="col-span-1 md:col-span-8">
-            <h1 class="text-2xl bg-blue-200 p-5 rounded-lg">
-                welcome {{ user.username }}! This is homepage.
-            </h1>
-        </div>
-    {% else %}
-    <div class="col-span-1 md:col-span-8">
-        <h1 class="text-2xl bg-blue-200 p-5 rounded-lg">
-            No user currently logged in. 
-        </h1>
+    <div class="w-full flex flex-row justify-between p-2 bg-gray-100 rounded-lg drop-shadow-lg">
+        <button class="text-3xl text-white bg-black rounded-full"> <a href="/" class="px-2 py-2"> X </a></button>
         <div class="flex flex-row">
-            <button type="submit" class="text-xl text-white bg-blue-500 rounded-lg px-4 py-2 mt-2"> <a href="{% url 'login' %}"> LOGIN </a> </button>
-            <button type="submit" class="text-xl text-white bg-blue-500 rounded-lg px-4 py-2 mt-2 ml-4"> <a href="{% url 'register' %}"> REGISTER </a> </button> 
+            <button class="text-lg text-black mx-2 my-1"> <a href="/" class="px-4 py-2"> Home </a></button>
+            
+
+            {% if user.is_authenticated %}
+                <button class="text-lg text-white bg-orange-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'post-create' %}" class="px-1 py-1"> NEW POST </a></button>
+                <button class="text-lg text-white bg-blue-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'profile' %}" class="px-1 py-1"> PROFILE </a></button>
+                <button class="text-lg text-white bg-green-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'logout' %}" class="px-1 py-1"> LOGOUT </a></button>
+            {% else %}
+                <button class="text-lg text-white bg-blue-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'login' %}" class="px-1 py-1"> LOGIN </a></button>
+                <button class="text-lg text-white bg-green-500 rounded-lg mx-2 my-1 px-3 py-2"> <a href="{% url 'register' %}" class="px-1 py-1"> REGISTER </a></button>
+            {% endif %}
+
         </div>
     </div>
-    {% endif %}
+
+{% endblock header %}
+
+{% block content %}
+
+    {% for post in posts %}
+
+    <div class="bg-gray-100 w-full rounded-lg drop-shadow-lg  p-5 md:p-10 mt-4">
+
+        <div class="flex flex-row justify-between">
+            <h1 class="text-2xl font-bold "> <a href="{% url 'post-detail' post.id %}"> {{ post.title }} </a></h1>
+
+            {% if post.author == user %}
+                <div class="flex flex-row">
+                    <button class="bg-blue-400 text-xl rounded-lg px-3 py-1 mr-2"><a href="{% url 'post-update' post.id %}"> Update </a></button>
+
+                    <button class="bg-red-400 text-xl rounded-lg px-3 py-1"><a href="{% url 'post-delete' post.id %}"> Delete </a></button>
+                </div>
+            {% endif %}
+        </div>
+        <p>Last updated: {{ post.updated_at }}</p>
+        <p> Author: {{ post.author }}</p>
+    </div>
+    {% endfor %}
+
 {% endblock content %}

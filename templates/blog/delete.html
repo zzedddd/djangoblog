@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Are you sure?</h1>
+        <button type="submit" class="text-xl text-white bg-red-500 rounded-lg px-4 py-2 float-right"> Confirm </button>
+        <button class="text-xl text-white bg-blue-500 rounded-lg px-4 py-2 float-right"> <a href="{% url 'post-detail' object.id %}"> Cancel </a></button>
+    </form>
+{% endblock content %}
